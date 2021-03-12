@@ -401,7 +401,7 @@ class VirtualEnvironment(object):
         self.run_cmd(cmd)
 
         # Upgrade installer dependencies (setuptools, ...)
-        cmd = pip_program + ['install', '-U']
+        cmd = pip_program + ['install', '-U', '--no-binary', ':all:']
         cmd.extend(requirements.installer)
         self.run_cmd(cmd)
 
@@ -412,7 +412,7 @@ class VirtualEnvironment(object):
 
         # install optional requirements
         for req in requirements.optional:
-            cmd = pip_program + ['install', '-U', req]
+            cmd = pip_program + ['install', '-U', '--no-binary', ':all:', req]
             exitcode = self.run_cmd_nocheck(cmd)
             if exitcode:
                 print("WARNING: failed to install %s" % req)
